@@ -4,33 +4,71 @@ import ReactDOM from 'react-dom';
 import Button from "./components/Button.jsx";
 import MessageField from "./components/MessageField.jsx";
 
-class App extends Component{
+import {answerRobot} from "./helpers/robot";
+
+class App extends Component {
+
+    componentDidUpdate() {
+        if (this.state.messages[this.state.messages.length - 1].author !=='Robot' &&
+            this.state.author === '' &&
+            this.state.message === '') {
+            this.answerRobot();
+        }
+    }
 
     state = {
         messages: [
             {
                 author: 'Ilya',
-                text: 'Hello'
+                message: 'Hello'
             }
         ],
+        message: '',
+        author: ''
     };
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    handleChange = () => (e) => {
+        this.setState(
+            {
+                [e.target.name]: e.target.value
+            }
+        );
+    };
 
-    }
+    handleSendMessage = (message, author) => () => () => {
+        this.setState((state) => {
+            return {
+                messages: [...state.messages, {author, message}],
+                author: '',
+                message: ''
+            }
+        });
+    };
+
+    answerRobot = () => {
+      setTimeout(() => {
+        this.setState((state) => {
+            return {
+                messages: [...state.messages, {author: 'Robot', message: answerRobot()}],
+            }
+        });
+      },1000);
+    };
 
     render() {
+        const {messages, message, author} = this.state;
+
         return(
             <div>
-                <input type="text" placeholder="Написать сообщение" />
-                <input type="text" placeholder="Автор" />
-                <Button />
+                <input onChange={this.handleChange()} value={message} name="message" type="text" placeholder="Написать сообщение" />
+                <input onChange={this.handleChange()} value={author} name="author" type="text" placeholder="Автор" />
+                <Button handleSendMessage={this.handleSendMessage(message, author)}  />
                 <hr/>
-                <MessageField messages={this.state.messages}/>
+                <MessageField messages={messages}/>
             </div>
         );
     }
-};
+}
 
 ReactDOM.render(<App />,
                 document.getElementById("root"));
