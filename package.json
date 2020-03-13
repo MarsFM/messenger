@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev1": "webpack --mode development",
-    "dev2": "webpack-dev-server --mode development --port 5001 --open",
+    "dev2": "webpack-dev-server --mode development --port 5000 --open",
     "build": "webpack --mode prodaction"
   },
   "repository": {
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/MarsFM/messenger#readme",
   "devDependencies": {
     "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.8.3",
     "babel-core": "^6.26.3",
