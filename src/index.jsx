@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 
 const App = () => {
     return(
@@ -9,5 +9,5 @@ const App = () => {
     );
 };
 
-ReactDom.render(<App />,
+ReactDOM.render(<App />,
                 document.getElementById("root"));
